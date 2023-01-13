@@ -1,5 +1,5 @@
 {
-    "name": "Akad-samy/phone-number-package",
+    "name": "akad-samy/phone-number-package",
     "description": "Phone number private package.",
     "autoload": {
         "psr-4": {
