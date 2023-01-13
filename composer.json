@@ -1,0 +1,11 @@
+{
+    "name": "Akad-samy/phone-number-package",
+    "description": "Phone number private package.",
+    "autoload": {
+        "psr-4": {
+            "AkadSamy\\PhoneNumberPackage\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
