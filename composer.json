@@ -1,6 +1,14 @@
 {
     "name": "akad-samy/phone-number-package",
     "description": "Phone number private package.",
+    "type": "library",
+    "licence": "MIT",
+    "authors":[
+        {
+            "name":"samy",
+            "email":"samy.a@sobrus.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "AkadSamy\\PhoneNumberPackage\\": "src/"
