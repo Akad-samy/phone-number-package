@@ -2,7 +2,7 @@
     "name": "akad-samy/phone-number-package",
     "description": "Phone number private package.",
     "type": "library",
-    "licence": "MIT",
+    "license": "MIT",
     "authors":[
         {
             "name":"samy",
