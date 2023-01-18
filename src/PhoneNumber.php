@@ -13,7 +13,7 @@ class PhoneNumber
         $this->phoneNumber = $phoneNumber;
     }
 
-    public static function standardizePhoneNumber(string $phoneNumber, string $type = 'local', string $country = 'ma')
+    public static function standardizePhoneNumber(string $phoneNumber, ?string $type = 'local', ?string $country = 'ma')
     {
         if(!$phoneNumber){
             throw new Exception("phone number is required", 400);
@@ -30,6 +30,7 @@ class PhoneNumber
         if(!($this->phoneNumber->verifyPhoneNumber($phoneNumber))){
             throw new Exception("invalid phone number", 400);
         }
+        return 'hello world';
 
     }
 }
