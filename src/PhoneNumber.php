@@ -3,32 +3,41 @@
 namespace PhoneNumberPackage;
 
 use PhoneNumberInterface;
+use PhoneNumberService;
 
 class PhoneNumber
 {
     private $phoneNumber;
 
-    public function __construct(PhoneNumberInterface $phoneNumber)
+    public function __construct()
     {
-        $this->phoneNumber = $phoneNumber;
     }
 
-    public static function standardizePhoneNumber(string $phoneNumber, ?string $type = 'local', ?string $country = 'ma')
+    public static function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
     {
+        $phoneNumber = new PhoneNumberService();
         if(!$phoneNumber){
-            throw new Exception("phone number is required", 400);
+            return [
+                'message'=>"phone number is required",
+            ];
         }
 
         if(!in_array($type, ['local', 'international'])){
-            throw new Exception("type must be local or international", 400);
+            return [
+                'message'=>"type must be local or international",
+            ];
         }
 
         if(!in_array($country, ['ma', 'fr'])){
-            throw new Exception("country must be 'ma' or 'fr'", 400);
+            return [
+                'message'=>"country must be 'ma' or 'fr'",
+            ];
         }
 
-        if(!($this->phoneNumber->verifyPhoneNumber($phoneNumber))){
-            throw new Exception("invalid phone number", 400);
+        if(!($phoneNumber->verifyPhoneNumber($number))){
+            return [
+                'message'=>"invalid phone number",
+            ];
         }
         return 'hello world';
 
