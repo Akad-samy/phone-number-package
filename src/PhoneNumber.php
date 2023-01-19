@@ -8,9 +8,8 @@ class PhoneNumber
 {
     private $phoneNumber;
 
-    public function __construct(PhoneNumberInterface $phoneNumber)
+    public function __construct()
     {
-        $this->phoneNumber = $phoneNumber;
     }
 
     public static function standardizePhoneNumber(string $phoneNumber, ?string $type = 'local', ?string $country = 'ma')
