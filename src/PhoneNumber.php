@@ -2,21 +2,14 @@
 
 namespace PhoneNumberPackage;
 
-use PhoneNumberInterface;
 use PhoneNumberService;
 
 class PhoneNumber
 {
-    private $phoneNumber;
-
-    public function __construct()
-    {
-    }
-
     public static function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
     {
-        $phoneNumber = new PhoneNumberService();
-        if(!$phoneNumber){
+        $t = new PhoneNumberService();
+        if(!$number){
             return [
                 'message'=>"phone number is required",
             ];
@@ -34,12 +27,14 @@ class PhoneNumber
             ];
         }
 
-        if(!($phoneNumber->verifyPhoneNumber($number))){
+        if(!($t->verifyPhoneNumber($number))){
             return [
                 'message'=>"invalid phone number",
             ];
         }
-        return 'hello world';
 
+        $phoneNumberWithoutSpecialChar = $t->cleanPhoneNumber($number);
+
+        return $t->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
     }
 }
