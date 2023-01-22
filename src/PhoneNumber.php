@@ -1,11 +1,45 @@
 <?php
-require_once('PhoneNumberService.php');
+namespace PhoneNumberPackage\PhoneNumber;
 
 class PhoneNumber
 {
-    public static function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
+
+    public function verifyPhoneNumber(string $phoneNumber, string $country = 'ma'):bool
     {
-        $t = new PhoneNumberService();
+        $moroccanRegExPattern = "/^((\+|00)?\(?(212)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
+        $franceRegExPattern = "/^((\+|00)?\(?(33)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
+        
+        $regExpPattern = $country === 'ma' ? $moroccanRegExPattern : $franceRegExPattern;
+        return preg_match($regExpPattern, $phoneNumber);
+
+    }
+
+    public function cleanPhoneNumber(string $phoneNumber):string
+    {
+
+        return preg_replace('/[^0-9+]/', '', $phoneNumber);
+
+    }
+
+    public function getPhoneNumberByType(string $phoneNumber, string $type = 'local'):string
+    {
+        if($type === 'international'){
+
+            $regExpPattern = '/^(0)/';
+            $replacement = '+212';
+
+        }elseif($type === 'local'){
+
+            $regExpPattern = '/^(\+(33)|\+(212)|(0033)|(00212))/';
+            $replacement = '0';
+
+        }
+
+        return preg_replace($regExpPattern, $replacement, $phoneNumber);
+    }
+
+    public function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
+    {
         if(!$number){
             return [
                 'message'=>"phone number is required",
@@ -24,14 +58,14 @@ class PhoneNumber
             ];
         }
 
-        if(!($t->verifyPhoneNumber($number))){
+        if(!($this->verifyPhoneNumber($number))){
             return [
                 'message'=>"invalid phone number",
             ];
         }
 
-        $phoneNumberWithoutSpecialChar = $t->cleanPhoneNumber($number);
+        $phoneNumberWithoutSpecialChar = $this->cleanPhoneNumber($number);
 
-        return $t->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
+        return $this->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
     }
 }
