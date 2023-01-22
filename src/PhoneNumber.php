@@ -1,5 +1,5 @@
 <?php
-namespace PhoneNumber;
+namespace PhoneNumberPackage;
 
 class PhoneNumber
 {
