@@ -8,7 +8,6 @@ class PhoneNumber
 {
     public static function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
     {
-        $t = new PhoneNumberService();
         if(!$number){
             return [
                 'message'=>"phone number is required",
@@ -27,14 +26,14 @@ class PhoneNumber
             ];
         }
 
-        if(!($t->verifyPhoneNumber($number))){
+        if(!(PhoneNumberService::verifyPhoneNumber($number))){
             return [
                 'message'=>"invalid phone number",
             ];
         }
 
-        $phoneNumberWithoutSpecialChar = $t->cleanPhoneNumber($number);
+        $phoneNumberWithoutSpecialChar = PhoneNumberService::cleanPhoneNumber($number);
 
-        return $t->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
+        return PhoneNumberService::getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-class PhoneNumberService implements PhoneNumberInterface
+class PhoneNumberService
 {
 
     private $moroccanRegExPattern = "/^((\+|00)?\(?(212)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
     private $franceRegExPattern = "/^((\+|00)?\(?(33)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
     
-    public function verifyPhoneNumber(string $phoneNumber, string $country = 'ma'):bool
+    static function verifyPhoneNumber(string $phoneNumber, string $country = 'ma'):bool
     {
 
         $regExpPattern = $country === 'ma' ? $this->moroccanRegExPattern : $this->franceRegExPattern;
@@ -14,14 +14,14 @@ class PhoneNumberService implements PhoneNumberInterface
 
     }
 
-    public function cleanPhoneNumber(string $phoneNumber):string
+    static function cleanPhoneNumber(string $phoneNumber):string
     {
 
         return preg_replace('/[^0-9+]/', '', $phoneNumber);
 
     }
 
-    public function getPhoneNumberByType(string $phoneNumber, string $type = 'local'):string
+    static function getPhoneNumberByType(string $phoneNumber, string $type = 'local'):string
     {
         if($type === 'international'){
 
