@@ -2,14 +2,12 @@
 
 class PhoneNumberService
 {
-
-    private $moroccanRegExPattern = "/^((\+|00)?\(?(212)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
-    private $franceRegExPattern = "/^((\+|00)?\(?(33)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
-    
-    static function verifyPhoneNumber(string $phoneNumber, string $country = 'ma'):bool
+    public function verifyPhoneNumber(string $phoneNumber, string $country = 'ma'):bool
     {
-
-        $regExpPattern = $country === 'ma' ? $this->moroccanRegExPattern : $this->franceRegExPattern;
+        $moroccanRegExPattern = "/^((\+|00)?\(?(212)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
+        $franceRegExPattern = "/^((\+|00)?\(?(33)\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{6})|([0-9]{2}\s?){4}[0-9]{2})$/";
+        
+        $regExpPattern = $country === 'ma' ? $moroccanRegExPattern : $franceRegExPattern;
         return preg_match($regExpPattern, $phoneNumber);
 
     }
