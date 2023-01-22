@@ -1,13 +1,11 @@
 <?php
-
-namespace PhoneNumberPackage;
-
-use PhoneNumberService;
+require_once('PhoneNumberService.php');
 
 class PhoneNumber
 {
     public static function standardizePhoneNumber(string $number, ?string $type = 'local', ?string $country = 'ma')
     {
+        $t = new PhoneNumberService();
         if(!$number){
             return [
                 'message'=>"phone number is required",
@@ -26,14 +24,14 @@ class PhoneNumber
             ];
         }
 
-        if(!(PhoneNumberService::verifyPhoneNumber($number))){
+        if(!($t->verifyPhoneNumber($number))){
             return [
                 'message'=>"invalid phone number",
             ];
         }
 
-        $phoneNumberWithoutSpecialChar = PhoneNumberService::cleanPhoneNumber($number);
+        $phoneNumberWithoutSpecialChar = $t->cleanPhoneNumber($number);
 
-        return PhoneNumberService::getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
+        return $t->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
     }
 }
