@@ -58,14 +58,14 @@ class PhoneNumber
             ];
         }
 
-        if(!($this->verifyPhoneNumber($number))){
+        if(!(verifyPhoneNumber($number))){
             return [
                 'message'=>"invalid phone number",
             ];
         }
 
-        $phoneNumberWithoutSpecialChar = $this->cleanPhoneNumber($number);
+        $phoneNumberWithoutSpecialChar = cleanPhoneNumber($number);
 
-        return $this->getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
+        return getPhoneNumberByType($phoneNumberWithoutSpecialChar, 'international');
     }
 }
